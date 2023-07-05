@@ -1,21 +1,19 @@
 pipeline {
     agent any
-    triggers { 
-        pollSCM('*/1 * * * *') 
-    }
     stages {
-        stage('build-docker-image') {
+        stage("build-docker-image") {
             steps {
-                build_docker_image()
+                buildDockerImage()
             }
         }
     }
 }
 
-def build_docker_image(){
-    echo "Building docker image.."
-    sh "docker build --no-cache -t mtararujs/api-tests ."
+// function for building the docker image
+def buildDockerImage() {
+    echo "Building Docker image..."
+    sh "docker build --no-cache -t kristelj/api-tests ."
 
-    echo "Pushing docker image to docker registry.."
-    sh "docker push mtararujs/api-tests"
+    echo "Pushing Docker image to Docker Hub..."
+    sh "docker push kristelj/api-tests"
 }
