@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    // polling periodically in cron syntax to trigger Jenkins pipeline:
+    triggers {
+        pollSCM('*/1 * * * *')
+    }
     stages {
         stage("build-docker-image") {
             steps {
